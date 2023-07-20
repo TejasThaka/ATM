@@ -1,0 +1,64 @@
+package the_ATM_withdraw;
+public class ATM {
+	
+private int ATM_id=1231;
+	private double ATM_bal = 50000;
+int Cos_Withdraw;
+	String total_bal_inCash;
+	
+	public ATM() {
+		super();
+	}
+	public ATM( int cos_bal) {
+		super();
+	 Cos_Withdraw = cos_bal;
+		total_bal_inCash = withdraw(Cos_Withdraw);
+	}
+	
+	
+	public String withdraw(int Cos_withdraw) {
+		int note2000 = 2000;
+int note500 = 500;
+int note100 = 100;
+int maxNotes2000 = Cos_withdraw / note2000;
+int maxNotes500 = Cos_withdraw / note500;
+int maxNotes100 = Cos_withdraw / note100;
+int givenNotes2000 = 0;
+int givenNotes500 = 0;
+int givenNotes100 = 0;
+int count=0;
+if (Cos_withdraw > 25000) {
+System.out.println("Withdrawal amount exceeds the maximum limit of 25000"); 
+}
+if (Cos_withdraw > (maxNotes2000 * note2000) + (maxNotes500 * note500) + (maxNotes100 * note100)) {
+System.out.println("Insufficient balance in the ATM");
+}
+if (Cos_withdraw >= note2000) {
+givenNotes2000 = maxNotes2000;
+Cos_withdraw -= givenNotes2000 * note2000;
+}
+if (Cos_withdraw >= note500) {
+givenNotes500 = Math.max(Math.min(maxNotes500, 2),1); // Ensures at least 1 or 2 notes of 500
+Cos_withdraw -= givenNotes500 * note500;
+}
+givenNotes100 = Cos_withdraw / note100;
+if(Cos_withdraw < 1000 && Cos_withdraw > 500) {
+// 	withdrawalAmount -= 500;
+	count = Cos_withdraw/(Cos_withdraw-=500); 	
+}
+if(Cos_withdraw < 500 && Cos_withdraw > 100 && Cos_withdraw == 100) {
+	count = Cos_withdraw/(Cos_withdraw-=100);
+}
+if (Cos_withdraw < note500 && Cos_withdraw >= note100) {
+givenNotes100 = Math.max(givenNotes100, count); // Ensures at least 5 notes of 100
+}
+		
+return "Dispensing " + givenNotes2000 + " notes of 2000 rupees, " + givenNotes500 +
+" notes of 500 rupees, and " + givenNotes100 + " notes of 100 rupees.";
+	}			
+	@Override
+	public String toString() {
+		return "ATM [total_bal_inCash=" + total_bal_inCash + "]";
+	}
+	
+}
